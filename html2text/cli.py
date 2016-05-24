@@ -139,6 +139,13 @@ def main():
         help="Format tables in HTML rather than Markdown syntax."
     )
     p.add_option(
+        "--simple-tables",
+        action="store_true",
+        dest="simple_tables",
+        default=config.SIMPLE_TABLES,
+        help="Extra simple tables with no real formatting. Useful for html email display in mutt, for example."
+    )
+    p.add_option(
         "--single-line-break",
         action="store_true",
         dest="single_line_break",
@@ -260,6 +267,7 @@ def main():
     h.hide_strikethrough = options.hide_strikethrough
     h.escape_snob = options.escape_snob
     h.bypass_tables = options.bypass_tables
+    h.simple_tables = options.simple_tables
     h.single_line_break = options.single_line_break
     h.inline_links = options.inline_links
     h.unicode_snob = options.unicode_snob

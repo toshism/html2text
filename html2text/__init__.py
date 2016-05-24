@@ -68,6 +68,7 @@ class HTML2Text(HTMLParser.HTMLParser):
         self.images_with_size = config.IMAGES_WITH_SIZE  # covered in cli
         self.ignore_emphasis = config.IGNORE_EMPHASIS  # covered in cli
         self.bypass_tables = config.BYPASS_TABLES  # covered in cli
+        self.simple_tables = config.SIMPLE_TABLES # covered in cli
         self.google_doc = False  # covered in cli
         self.ul_item_mark = '*'  # covered in cli
         self.emphasis_mark = '_'  # covered in cli
@@ -554,7 +555,16 @@ class HTML2Text(HTMLParser.HTMLParser):
                         self.o('<{0}>'.format(tag))
                     else:
                         self.o('</{0}>'.format(tag))
-
+            elif self.simple_tables:
+                if start:
+                    self.soft_br()
+                if tag in ["td", "th"]:
+                    if start:
+                        self.o('    ')
+                    else:
+                        self.o('')
+                else:
+                    self.o('')
             else:
                 if tag == "table" and start:
                     self.table_start = True
